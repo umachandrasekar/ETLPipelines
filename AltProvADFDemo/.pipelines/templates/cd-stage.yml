@@ -1,0 +1,67 @@
+# CD template
+parameters:
+  - name: env
+    type: string
+    default: dev
+
+jobs:
+  - job: DeployADF
+    displayName: "Deploy ARM Template to Data Factory in ${{ parameters.env }}"
+    pool:
+      name: Azure Pipelines 
+    variables:
+      - template: ../variables/${{ parameters.env }}.yml
+
+    steps:
+      - checkout: self
+        displayName: 'Checkout CD pipeline repo'
+
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          buildType: 'specific'
+          project: 'ETLOperations'
+          pipeline: 'ADFDemo-CI'
+          runVersion: 'latest'
+          artifactName: 'adf-artifact-ArmTemplate'
+          targetPath: '$(Pipeline.Workspace)/adf-deployment-artifact'
+        displayName: 'Download ARM Template Artifact'
+      - script: dir
+        displayName: List files in Workspace
+        workingDirectory: '$(Pipeline.Workspace)/adf-deployment-artifact'
+
+      # Deploy ADF resources to Live Mode
+      - task: AzureResourceManagerTemplateDeployment@3
+        displayName: 'Deploying ARM Template to Data Factory'
+        inputs:
+          deploymentScope: 'Resource Group'
+          azureResourceManagerConnection: ${{ variables['serviceConnection'] }}
+          subscriptionId: ${{ variables['subscriptionId'] }} 
+          action: 'Create Or Update Resource Group'
+          resourceGroupName: ${{ variables['resourceGroupName'] }}  
+          location: 'Central US'
+          templateLocation: 'Linked artifact'
+          csmFile: '$(Pipeline.Workspace)/adf-deployment-artifact/ARMTemplateForFactory.json'
+          csmParametersFile: '$(Pipeline.Workspace)/adf-deployment-artifact/ARMTemplateParametersForFactory.json'
+          overrideParameters: >
+            -factoryName "$(dataFactoryName)"
+            -AzureBlobStorage1_properties_typeProperties_connectionString_secretName "$(AzureBlobStorage1_properties_typeProperties_connectionString_secretName)"
+
+          deploymentMode: 'Incremental'
+
+      # Post-deployment verification (optional)
+      - task: AzureCLI@2
+        inputs:
+          azureSubscription: ${{ variables['serviceConnection'] }} 
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            # Verify the Data Factory deployment
+            RESOURCE_GROUP="$(resourceGroupName)"
+            DATAFACTORY_NAME="$(dataFactoryName)"
+            echo "Validating deployment of Data Factory: $DATAFACTORY_NAME in Resource Group: $RESOURCE_GROUP"
+            
+            # Check if the Data Factory exists
+            az extension add --name datafactory
+            az datafactory show --resource-group $RESOURCE_GROUP --factory-name $DATAFACTORY_NAME
+        displayName: 'Verify Data Factory Deployment'
+        condition: succeeded()

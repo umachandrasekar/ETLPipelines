@@ -1,0 +1,92 @@
+# CI template
+parameters:
+  - name: adfCodePath
+    type: string
+  - name: adfPackageFilePath
+    type: string
+  - name: env
+    type: string
+    default: dev
+
+stages:
+  - stage: BuildADF
+    displayName: "Build"
+    variables:
+      - template: ../variables/${{ parameters.env }}.yml
+
+    jobs:
+    - job: Build_Adf_Arm_Template
+      displayName: 'ADF - ARM template'
+      workspace:
+        clean: all
+      steps:
+      - checkout: self
+        displayName: 'Checkout self repo'
+        clean: true
+
+      - script: echo '$(Build.BuildNumber)'
+        displayName: 'Display build number'
+
+      - script: echo '$(Build.DefinitionName)_$(Build.DefinitionVersion)_$(Build.RequestedFor)_$(Build.BuildId)_$(My.Variable)'
+        displayName: 'Display build Id'
+
+      - script: ls -R $(System.DefaultWorkingDirectory)
+        displayName: 'List directory contents of self repo working directory for debugging'
+
+      - checkout: ETLAltairOps
+        displayName: 'Checkout ADF repo'
+        clean: true
+        path: ETLAltairOps
+
+      - script: ls -R $(Pipeline.Workspace)/ETLAltairOps
+        displayName: 'List contents of ETLAltairOps'
+      
+      # Installs Node and the npm packages saved in your package.json file
+      - task: NodeTool@0
+        displayName: 'Install Node.js'
+        inputs:
+          versionSpec: '19.x'
+      
+      - task: Npm@1
+        displayName: 'Install npm package'
+        inputs:
+          command: 'install'
+          workingDir: $(System.DefaultWorkingDirectory)/${{ parameters.adfPackageFilePath }}
+          verbose: true
+      
+      # Set BuildAdfResourceId variable
+#      - task: AzureCLI@2
+#        inputs:
+#          azureSubscription: ${{ variables['serviceConnection'] }}
+#          scriptType: 'bash'
+#          scriptLocation: 'inlineScript'
+#          inlineScript: |
+#            echo "##vso[task.setvariable variable=BuildAdfResourceId]\
+#            /subscriptions/$(az account show --query id -o tsv)\
+#            /resourceGroups/${{ variables['resourceGroupName'] }}\
+#            /providers/Microsoft.DataFactory/factories/${{ variables['dataFactoryName'] }}"
+#        displayName: 'Set BuildAdfResourceId from service connection'
+
+      # ADF - Validates all on adf-code.
+      - task: Npm@1
+        displayName: 'Validate Source code'
+        inputs:
+          command: 'custom'
+          workingDir: $(System.DefaultWorkingDirectory)/${{ parameters.adfPackageFilePath }}
+          customCommand: "run build validate $(Pipeline.Workspace)/${{ parameters.adfCodePath }} /subscriptions/${{ variables['subscriptionId'] }}/resourceGroups/${{ variables['resourceGroupName'] }}/providers/Microsoft.DataFactory/factories/${{ variables['dataFactoryName'] }}"
+      
+      # ADF - Generate ARM template
+      - task: Npm@1
+        displayName: 'Generate ARM template'
+        inputs:
+          command: 'custom'
+          workingDir: $(System.DefaultWorkingDirectory)/${{ parameters.adfPackageFilePath }}
+          customCommand: "run build export $(Pipeline.Workspace)/${{ parameters.adfCodePath }} /subscriptions/${{ variables['subscriptionId'] }}/resourceGroups/${{ variables['resourceGroupName'] }}/providers/Microsoft.DataFactory/factories/${{ variables['dataFactoryName'] }} 'adfDemoArmTemplate'"
+
+      # Publish the artifact
+      - task: PublishPipelineArtifact@1
+        displayName: 'Publish ARM template'
+        inputs:
+          targetPath: '$(System.DefaultWorkingDirectory)/${{ parameters.adfPackageFilePath }}/adfDemoArmTemplate'
+          artifact: 'adf-artifact-ArmTemplate'
+          publishLocation: 'pipeline'

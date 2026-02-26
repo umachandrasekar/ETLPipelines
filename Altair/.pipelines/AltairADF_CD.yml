@@ -1,0 +1,62 @@
+# CD pipeline
+###################################
+#       Pipeline Properties       #
+###################################
+
+trigger: none
+
+resources:
+  pipelines:
+    - pipeline: ci-pipeline
+      source: ADFAltairOps-CI
+      trigger:
+        branches:
+          include:
+          - develop
+          - release/*
+
+name: 1.0.$(Date:yyyyMMdd)$(Rev:.r)
+
+###################################
+#       Pipeline Stages           #
+###################################
+
+stages:
+- stage: RunningPrereq
+  displayName: 'Running Prereq'
+  jobs:
+    - job: 'RunningPrereq'
+      steps:
+        - script: env | sort
+          displayName: Display all environment variables
+
+  pool:
+    name: UCareLZAltProvAgentPool
+
+- ${{ if contains(variables['Build.SourceBranch'], 'develop') }}:
+  - stage: DevDeploy
+    displayName: 'Deployment to Dev'
+    dependsOn: RunningPrereq
+    jobs:
+     - template: ../.pipelines/templates/cd-stage.yml
+       parameters:
+         env: dev
+
+- ${{ if contains(variables['Build.SourceBranch'], 'release') }}:
+  - stage: StageDeploy
+    displayName: 'Deployment to Stage'
+    dependsOn: RunningPrereq
+    condition: succeeded()
+    jobs:
+    - template: ../.pipelines/templates/cd-stage.yml
+      parameters:
+          env: stage
+  - stage: ProdDeploy
+    displayName: 'Deployment to Prod'
+    dependsOn: StageDeploy
+    condition: succeeded()
+    jobs:
+    - template: ../.pipelines/templates/cd-stage.yml
+      parameters:
+          env: prod
+

@@ -1,0 +1,27 @@
+variables:
+  serviceConnection: "uc-esd-sub-sc-ETLOperations"
+  #commonPublishArmTemplateName: "ARMTemplateForFactory"
+  resourceGroupName: "ucm-esd-dev-shared-cus-rg-df-001"
+  subscriptionId: "2c7fb6e6-2527-4c02-be25-68120768c342"
+  dataFactoryName: "ucmshareddevdfcus01"
+
+  LS_SQL_DL_OUTBOUND_properties_typeProperties_server: "UCDBIDL02D-P"
+  LS_SQL_DL_OUTBOUND_properties_typeProperties_database: "DL_OUTBOUND"
+  LS_SQL_DL_OUTBOUND_properties_typeProperties_userName: 'UAFP_DOMAIN\\svc_adf_dev'
+  LS_SQL_EXP_properties_typeProperties_server: "UCDBMAcess02d-V"
+  LS_SQL_EXP_properties_typeProperties_database: "EXP_DEV"
+  LS_SQL_EXP_properties_typeProperties_userName: 'UAFP_DOMAIN\\svc_adf_dev'
+  LS_AzureSqlMI_OMA_properties_typeProperties_server: "ucmportalsqlmidev01.cb0ea9ca26c2.database.windows.net"
+  LS_AzureSqlMI_OMA_properties_typeProperties_database: "ucmmemportalsqldb"
+  LS_AKV_ETLShared_properties_typeProperties_baseUrl: "https://ucmesdetlcusakv001.vault.azure.net/"
+  UCM-ADF-PORTALSQLMI-MPE_properties_privateLinkResourceId: "/subscriptions/2c7fb6e6-2527-4c02-be25-68120768c342/resourceGroups/ucm-esd-dev-moa-cus-rg-db-001/providers/Microsoft.Sql/managedInstances/ucmportalsqlmidev01"
+  UCM-ADF-PORTALSQLMI-MPE_properties_groupId: "managedInstance"
+  #AltProv Addition
+  LS_SQL_AZUREINEGRATION_properties_typeProperties_server: "ENTSERVICESDBDEV"
+  LS_SQL_AZUREINEGRATION_properties_typeProperties_database: "AzureIntegration"
+  LS_SQL_AZUREINEGRATION_properties_typeProperties_userName: 'UAFP_DOMAIN\\svc_adf_dev'
+  LS_ALTPROV_ADLS_properties_typeProperties_url: "https://ucmapsastajobdev.dfs.core.windows.net/"
+  #default_properties_PipelineSuccess_value: "1"
+  #LS_ABLB_UCMALTAIR_properties_typeProperties_connectionString_secretName: "ucmaltairdevsacus01-primary-connection-string"
+  LS_CRM_D365_properties_typeProperties_serviceUri: "https://ucaredev.crm.dynamics.com"
+  LS_CRM_D365_properties_typeProperties_servicePrincipalId: "e418dd42-55a5-47b8-a765-3c6a61ad0507"

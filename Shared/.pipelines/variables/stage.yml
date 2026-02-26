@@ -1,0 +1,25 @@
+variables:
+  serviceConnection: "uc-ess-sub-sc-ETLOperations"
+  resourceGroupName: "ucm-ess-stg-shared-cus-rg-df-001"
+  subscriptionId: "548afe1f-f0ea-4f2f-a212-f7d0b912984d"
+  dataFactoryName: "ucmsharedstgdfcus01"
+
+  LS_SQL_DL_OUTBOUND_properties_typeProperties_server: "UCDBIDL01S-P"
+  LS_SQL_DL_OUTBOUND_properties_typeProperties_database: "DL_OUTBOUND"
+  LS_SQL_DL_OUTBOUND_properties_typeProperties_userName: 'UAFP_DOMAIN\\svc_adf_stage'
+  LS_SQL_EXP_properties_typeProperties_server: "Macessdbstage"
+  LS_SQL_EXP_properties_typeProperties_database: "EXP_STAGE"
+  LS_SQL_EXP_properties_typeProperties_userName: 'UAFP_DOMAIN\\svc_adf_stage'
+  LS_AzureSqlMI_OMA_properties_typeProperties_server: "ucmportalsqlmistg01.82d51ce56228.database.windows.net"
+  LS_AzureSqlMI_OMA_properties_typeProperties_database: "ucmmemportalsqldb"
+  LS_AKV_ETLShared_properties_typeProperties_baseUrl: "https://ucmessetlcusakv001.vault.azure.net/"
+  UCM-ADF-PORTALSQLMI-MPE_properties_privateLinkResourceId: "/subscriptions/548afe1f-f0ea-4f2f-a212-f7d0b912984d/resourceGroups/ucm-ess-stg-moa-cus-rg-db-001/providers/Microsoft.Sql/managedInstances/ucmportalsqlmistg01"
+  UCM-ADF-PORTALSQLMI-MPE_properties_groupId: "managedInstance"
+  #AltProv Addition
+  LS_SQL_AZUREINEGRATION_properties_typeProperties_server: "ENTSERVICESDBSTAGE"
+  LS_SQL_AZUREINEGRATION_properties_typeProperties_database: "AzureIntegration"
+  LS_SQL_AZUREINEGRATION_properties_typeProperties_userName: 'UAFP_DOMAIN\\svc_adf_stage'
+  LS_ALTPROV_ADLS_properties_typeProperties_url: "https://ucmapsastajobstg.dfs.core.windows.net/"
+  ##below 2 needs to be updated for Stage
+  LS_CRM_D365_properties_typeProperties_serviceUri: "https://ucarestg.crm.dynamics.com"
+  LS_CRM_D365_properties_typeProperties_servicePrincipalId: "bdf327ad-e2f8-480c-bcb1-98184dc0b3ed"

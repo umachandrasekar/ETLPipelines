@@ -1,0 +1,25 @@
+variables:
+  serviceConnection: "uc-esp-sub-sc-ETLOperations"
+  resourceGroupName: "ucm-esp-prd-shared-cus-rg-df-001"
+  subscriptionId: "6b9de8ab-9c5a-4760-8a80-c17d9c1e0f79"
+  dataFactoryName: "ucmsharedprddfcus01"
+
+  LS_SQL_DL_OUTBOUND_properties_typeProperties_server: "IDLPROD"
+  LS_SQL_DL_OUTBOUND_properties_typeProperties_database: "DL_OUTBOUND"
+  LS_SQL_DL_OUTBOUND_properties_typeProperties_userName: 'UAFP_DOMAIN\\svc_adf_prod'
+  LS_SQL_EXP_properties_typeProperties_server: "macessdbprod"
+  LS_SQL_EXP_properties_typeProperties_database: "EXP_PROD"
+  LS_SQL_EXP_properties_typeProperties_userName: 'UAFP_DOMAIN\\svc_adf_prod'
+  LS_AzureSqlMI_OMA_properties_typeProperties_server: "ucmportalsqlmiprd01.8271844cf722.database.windows.net"
+  LS_AzureSqlMI_OMA_properties_typeProperties_database: "ucmmemportalsqldb"
+  LS_AKV_ETLShared_properties_typeProperties_baseUrl: "https://ucmespetlcusakv001.vault.azure.net/"
+  UCM-ADF-PORTALSQLMI-MPE_properties_privateLinkResourceId: "/subscriptions/6b9de8ab-9c5a-4760-8a80-c17d9c1e0f79/resourceGroups/ucm-esp-prd-moa-cus-rg-db-001/providers/Microsoft.Sql/managedInstances/ucmportalsqlmiprd01"
+  UCM-ADF-PORTALSQLMI-MPE_properties_groupId: "managedInstance"
+  #AltProv Addition
+  LS_SQL_AZUREINEGRATION_properties_typeProperties_server: "ENTSERVICESDBPROD"
+  LS_SQL_AZUREINEGRATION_properties_typeProperties_database: "AzureIntegration"
+  LS_SQL_AZUREINEGRATION_properties_typeProperties_userName: 'UAFP_DOMAIN\\svc_adf_prod'
+  LS_ALTPROV_ADLS_properties_typeProperties_url: "https://ucmapsastajobprd.dfs.core.windows.net/"
+  ##below 2 needs to be updated for PROD
+  LS_CRM_D365_properties_typeProperties_serviceUri: "https://ucareprd.crm.dynamics.com"
+  LS_CRM_D365_properties_typeProperties_servicePrincipalId: "bdf327ad-e2f8-480c-bcb1-98184dc0b3ed"

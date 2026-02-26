@@ -1,0 +1,25 @@
+# CI for AltProvDatabaseDev
+trigger: none
+
+pool:
+  name: Azure Pipelines 
+    
+resources:
+  repositories:
+    - repository: self
+      type: git
+      ref: $(Build.SourceBranch)  
+    - repository: ETLOperationsPOC
+      type: git
+      name: ETLOperationsPOC
+      ref: develop
+
+
+name: 1.0.$(Date:yyyyMMdd)$(Rev:.r)
+
+stages:
+  - template: ../.pipelines/templates/ci-stage.yml
+    parameters:
+      adfCodePath: "ETLOperationsPOC/CLOUD/ADFDemo"
+      adfPackageFilePath: "ETLPipelines/AltProvADFDemo"
+      env: "dev"

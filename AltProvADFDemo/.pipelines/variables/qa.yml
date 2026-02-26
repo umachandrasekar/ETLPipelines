@@ -1,0 +1,10 @@
+variables:
+  serviceConnection: 'uc-esd-sub-sc-ETLOperations'
+  commonPublishArmTemplateName: 'adfDemoArmTemplate'
+  resourceGroupName: 'ucm-esd-qa-poc-shared-cus-rg-df-001'
+  subscriptionId: '2c7fb6e6-2527-4c02-be25-68120768c342'
+  dataFactoryName: 'ucmsharedqadfpoccus01'
+
+  AzureBlobStorage1_properties_typeProperties_connectionString_secretName: "sadevpocQAadf-accesskey"
+# Key Vault
+  #keyVaultName: 'ucmesdsharedcusakv001'

@@ -1,0 +1,19 @@
+variables:
+  serviceConnection: "uc-eap-sub-sc-ETLOperations"
+  #commonPublishArmTemplateName: "adfAltairOpsArmTemplate"
+  resourceGroupName: "ucm-eap-prd-altair-cus-rg-df-001"
+  subscriptionId: "2c775b88-4a41-48d8-8b23-bec4c0d0b8c4"
+  dataFactoryName: "ucmaltairdfprd"
+  LS_AKV_ALTAIRETL_properties_typeProperties_baseUrl: "https://ucmeapetlaltaircusakv001.vault.azure.net/"
+  LS_ASQLMI_UCMALTAIRSQLDB_properties_typeProperties_server: "ucmaltairsqlmiprd01.6c01518b041f.database.windows.net"
+  LS_ASQLMI_UCMALTAIRSQLDB_properties_typeProperties_database: "ucmaltairsqldb"
+  LS_ASQLMI_UCMALTAIRMETADATASQLDB_properties_typeProperties_server: "ucmaltairsqlmiprd01.6c01518b041f.database.windows.net"
+  LS_ASQLMI_UCMALTAIRMETADATASQLDB_properties_typeProperties_database: "ucmaltairmetadatasqldb"
+  Altair_Master_properties_typeProperties_scope: "/subscriptions/2c775b88-4a41-48d8-8b23-bec4c0d0b8c4/resourceGroups/ucm-eap-prd-altair-cus-rg-sa-001/providers/Microsoft.Storage/storageAccounts/ucmaltairprdsacus01"
+  UCM-ADF-ALTAIRSQLMI-MPE_properties_privateLinkResourceId: "/subscriptions/2c775b88-4a41-48d8-8b23-bec4c0d0b8c4/resourceGroups/ucm-eap-prd-altair-cus-rg-db-001/providers/Microsoft.Sql/managedInstances/ucmaltairsqlmiprd01"
+  UCM-ADF-ALTAIRSQLMI-MPE_properties_groupId: "managedInstance"
+  LS_ABLB_UCMALTAIR_properties_typeProperties_connectionString_secretName: "ucmaltairprdsacus01-primary-connection-string"
+  UCM-ADF-ALTAIRBLOB-MPE_properties_privateLinkResourceId: "/subscriptions/2c775b88-4a41-48d8-8b23-bec4c0d0b8c4/resourceGroups/ucm-eap-prd-altair-cus-rg-sa-001/providers/Microsoft.Storage/storageAccounts/ucmaltairprdsacus01"
+  default_properties_PipelineSuccess_value: "1"
+# Key Vault
+#keyVaultName: 'ucmesdsharedcusakv001'

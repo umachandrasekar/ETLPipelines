@@ -1,0 +1,24 @@
+# CI for AltProvDatabaseDev
+#trigger: none
+
+pool:
+  name: Azure Pipelines 
+    
+resources:
+  repositories:
+    - repository: self
+      type: git
+      ref: $(Build.SourceBranch)  
+    - repository: ETLAltairOps
+      type: git
+      name: ETLAltairOps
+      ref: $(Build.SourceBranch)
+
+name: 1.0.$(Date:yyyyMMdd)$(Rev:.r)
+
+stages:
+  - template: ../.pipelines/templates/ci-stage.yml
+    parameters:
+      adfCodePath: "ETLAltairOps/AltairOps"
+      adfPackageFilePath: "ETLPipelines/Altair"
+      env: "dev"

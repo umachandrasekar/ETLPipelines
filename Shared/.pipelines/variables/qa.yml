@@ -1,0 +1,24 @@
+variables:
+  serviceConnection: "uc-esd-sub-sc-ETLOperations"
+  resourceGroupName: "ucm-esd-qa-shared-cus-rg-df-001"
+  subscriptionId: "2c7fb6e6-2527-4c02-be25-68120768c342"
+  dataFactoryName: "ucmsharedqadfcus01"
+
+  LS_SQL_DL_OUTBOUND_properties_typeProperties_server: "UCDBIDL02Q-P"
+  LS_SQL_DL_OUTBOUND_properties_typeProperties_database: "DL_OUTBOUND"
+  LS_SQL_DL_OUTBOUND_properties_typeProperties_userName: 'UAFP_DOMAIN\\svc_adf_qa'
+  LS_SQL_EXP_properties_typeProperties_server: "UCDBMAcess02Q-V"
+  LS_SQL_EXP_properties_typeProperties_database: "EXP_QA"
+  LS_SQL_EXP_properties_typeProperties_userName: 'UAFP_DOMAIN\\svc_adf_qa'
+  LS_AzureSqlMI_OMA_properties_typeProperties_server: "ucmportalsqlmiqa01.cb0ea9ca26c2.database.windows.net"
+  LS_AzureSqlMI_OMA_properties_typeProperties_database: "ucmmemportalsqldb"
+  LS_AKV_ETLShared_properties_typeProperties_baseUrl: "https://ucmesdetlqacusakv001.vault.azure.net/"
+  UCM-ADF-PORTALSQLMI-MPE_properties_privateLinkResourceId: "/subscriptions/2c7fb6e6-2527-4c02-be25-68120768c342/resourceGroups/ucm-esd-qa-moa-cus-rg-db-001/providers/Microsoft.Sql/managedInstances/ucmportalsqlmiqa01"
+  UCM-ADF-PORTALSQLMI-MPE_properties_groupId: "managedInstance"
+  #AltProv Addition
+  LS_SQL_AZUREINEGRATION_properties_typeProperties_server: "ENTSERVICESDBQA"
+  LS_SQL_AZUREINEGRATION_properties_typeProperties_database: "AzureIntegration"
+  LS_SQL_AZUREINEGRATION_properties_typeProperties_userName: 'UAFP_DOMAIN\\svc_adf_qa'
+  LS_ALTPROV_ADLS_properties_typeProperties_url: "https://ucmapsastajobqa.dfs.core.windows.net/"
+  LS_CRM_D365_properties_typeProperties_serviceUri: "https://ucareqa.crm.dynamics.com"
+  LS_CRM_D365_properties_typeProperties_servicePrincipalId: "bdf327ad-e2f8-480c-bcb1-98184dc0b3ed"
